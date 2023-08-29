@@ -3,44 +3,52 @@
 module RequestQueueTime
   module Aws
     class CloudWatch
+      UNIT_SECONDS = 'Seconds'
+      DIMENSION_ENVIRONMENT = 'Environment'
+      DIMENSION_APPLICATION_NAME = 'Application name'
+
       def initialize(amzn_trace_id_header)
-        @client = ::Aws::CloudWatch::Client.new(region: RequestQueueTime.aws_region, credentials: credentials)
+        @client = ::Aws::CloudWatch::Client.new(
+          region: RequestQueueTime.config.aws_region,
+          credentials:
+        )
         @amzn_trace_id_header = amzn_trace_id_header
       end
 
       def send_metric
         client.put_metric_data(
-          namespace: RequestQueueTime.metric_namespace,
+          namespace: RequestQueueTime.config.metric_namespace,
           metric_data: [{
-            metric_name: RequestQueueTime.metric_name,
-            dimensions: dimensions,
-            timestamp: Time.current.to_i,
-            value: request_wait_time,
-            unit: 'Seconds'
+            metric_name: RequestQueueTime.config.metric_name,
+            dimensions:,
+            timestamp: Time.now.to_i,
+            value: request_queue_time,
+            unit: UNIT_SECONDS
           }]
         )
       end
 
       private
 
-      attr_reader :client, :amzn_trace_id_header
+      attr_reader :client
+      attr_reader :amzn_trace_id_header
 
       def credentials
-        ::Aws::Credentials.new(RequestQueueTime.aws_access_key_id, RequestQueueTime.aws_secret_access_key)
+        ::Aws::Credentials.new(
+          RequestQueueTime.config.aws_access_key_id,
+          RequestQueueTime.config.aws_secret_access_key
+        )
       end
 
       def dimensions
         [
-          { name: 'Environment', value: RequestQueueTime.metric_environment },
-          { name: 'Application name', value: RequestQueueTime.metric_app_name }
+          { name: DIMENSION_ENVIRONMENT, value: RequestQueueTime.config.metric_environment },
+          { name: DIMENSION_APPLICATION_NAME, value: RequestQueueTime.config.metric_app_name }
         ]
       end
 
-      def request_wait_time
-        load_balancer_request_start_time = AmznTraceId.new(amzn_trace_id_header).time
-        current_time = Time.current.to_i
-
-        current_time - load_balancer_request_start_time
+      def request_queue_time
+        Time.now.to_i - AmznTraceId.new(amzn_trace_id_header).request_start_time
       end
     end
   end

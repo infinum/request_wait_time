@@ -29,7 +29,6 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '> 6'
   spec.add_dependency 'aws-sdk-cloudwatch', '~> 1.0'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
