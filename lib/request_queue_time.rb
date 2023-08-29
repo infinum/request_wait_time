@@ -2,15 +2,15 @@
 
 require 'aws-sdk-cloudwatch'
 
-require_relative "request_wait_time/version"
-require_relative "request_wait_time/aws/amzn_trace_id"
-require_relative "request_wait_time/aws/cloud_watch"
-require_relative "request_wait_time/middleware"
+require_relative "request_queue_time/version"
+require_relative "request_queue_time/aws/amzn_trace_id"
+require_relative "request_queue_time/aws/cloud_watch"
+require_relative "request_queue_time/middleware"
 
-module RequestWaitTime
+module RequestQueueTime
   # CloudWatch metric namespace
   mattr_accessor :metric_namespace
-  @@metric_namespace = 'RequestWaitTime'
+  @@metric_namespace = 'RequestQueueTime'
 
   # CloudWatch app name
   mattr_accessor :metric_app_name

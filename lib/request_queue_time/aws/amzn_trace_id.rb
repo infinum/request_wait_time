@@ -1,4 +1,4 @@
-module RequestWaitTime
+module RequestQueueTime
   module Aws
     class AmznTraceId
       HEADER = 'HTTP_X_AMZN_TRACE_ID'.freeze

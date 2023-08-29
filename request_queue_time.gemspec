@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/request_wait_time/version"
+require_relative "lib/request_queue_time/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "request_wait_time"
-  spec.version = RequestWaitTime::VERSION
+  spec.name = "request_queue_time"
+  spec.version = RequestQueueTime::VERSION
   spec.authors = ["matejminazek"]
   spec.email = ["matej.minazek@infinum.com"]
 

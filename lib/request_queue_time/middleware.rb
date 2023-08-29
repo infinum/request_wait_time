@@ -1,11 +1,11 @@
-module RequestWaitTime
+module RequestQueueTime
   class Middleware
     def initialize(app)
       @app = app
     end
 
     def call(env)
-      amzn_trace_id_header = env[RequestWaitTime::Aws::AmznTraceId::HEADER]
+      amzn_trace_id_header = env[RequestQueueTime::Aws::AmznTraceId::HEADER]
 
       Thread.new { send_metric(amzn_trace_id_header) } if amzn_trace_id_header
 
@@ -15,7 +15,7 @@ module RequestWaitTime
     private
 
     def send_metric(amzn_trace_id_header)
-      RequestWaitTime::Aws::CloudWatch.new(amzn_trace_id_header).send_metric
+      RequestQueueTime::Aws::CloudWatch.new(amzn_trace_id_header).send_metric
     rescue StandardError
       # Ignored
     end

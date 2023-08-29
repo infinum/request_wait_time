@@ -1,4 +1,4 @@
-module RequestWaitTime
+module RequestQueueTime
   module Aws
     class CloudWatch
       def initialize(amzn_trace_id_header)
@@ -8,9 +8,9 @@ module RequestWaitTime
 
       def send_metric
         client.put_metric_data(
-          namespace: RequestWaitTime.metric_namespace,
+          namespace: RequestQueueTime.metric_namespace,
           metric_data: [{
-                          metric_name: RequestWaitTime.metric_name,
+                          metric_name: RequestQueueTime.metric_name,
                           dimensions: dimensions,
                           timestamp: Time.current.to_i,
                           value: request_wait_time,
@@ -24,13 +24,13 @@ module RequestWaitTime
       attr_reader :client, :amzn_trace_id_header
 
       def credentials
-        ::Aws::Credentials.new(RequestWaitTime.aws_access_key_id, RequestWaitTime.aws_secret_access_key)
+        ::Aws::Credentials.new(RequestQueueTime.aws_access_key_id, RequestQueueTime.aws_secret_access_key)
       end
 
       def dimensions
         [
-          { name: "Environment", value: RequestWaitTime.metric_environment },
-          { name: 'Application name', value: RequestWaitTime.metric_app_name }
+          { name: "Environment", value: RequestQueueTime.metric_environment },
+          { name: 'Application name', value: RequestQueueTime.metric_app_name }
         ]
       end
 
