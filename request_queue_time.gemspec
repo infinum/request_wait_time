@@ -5,8 +5,8 @@ require_relative 'lib/request_queue_time/version'
 Gem::Specification.new do |spec|
   spec.name = 'request_queue_time'
   spec.version = RequestQueueTime::VERSION
-  spec.authors = ['matejminazek']
-  spec.email = ['matej.minazek@infinum.com']
+  spec.authors = ['Team Rails @ Infinum']
+  spec.email = ['team.rails@infinum.com']
 
   spec.summary = 'This gems records request queue time from AWS LB header and sends it to CloudWatch'
   spec.description = 'This gems records request queue time from AWS LB header and sends it to CloudWatch'
