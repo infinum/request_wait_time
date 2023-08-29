@@ -33,7 +33,7 @@ module RequestQueueTime
   @@aws_secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY', nil)
 
   mattr_accessor :aws_region
-  @@aws_region = ENV.fetch('AWS_REGION')
+  @@aws_region = ENV.fetch('AWS_REGION', nil)
 
   def self.setup
     yield self
