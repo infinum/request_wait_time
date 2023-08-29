@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in request_wait_time.gemspec
+# Specify your gem's dependencies in request_queue_time.gemspec
 gemspec
 
 gem 'rake', '~> 13.0'

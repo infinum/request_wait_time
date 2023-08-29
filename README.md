@@ -41,7 +41,7 @@ Running specs:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/infinum/request_wait_time.
+Bug reports and pull requests are welcome on GitHub at https://github.com/infinum/ruby-request_queue_time.
 
 ## License
 
