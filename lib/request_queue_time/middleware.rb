@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequestQueueTime
   class Middleware
     def initialize(app)

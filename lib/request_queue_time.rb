@@ -2,10 +2,10 @@
 
 require 'aws-sdk-cloudwatch'
 
-require_relative "request_queue_time/version"
-require_relative "request_queue_time/aws/amzn_trace_id"
-require_relative "request_queue_time/aws/cloud_watch"
-require_relative "request_queue_time/middleware"
+require_relative 'request_queue_time/version'
+require_relative 'request_queue_time/aws/amzn_trace_id'
+require_relative 'request_queue_time/aws/cloud_watch'
+require_relative 'request_queue_time/middleware'
 
 module RequestQueueTime
   # CloudWatch metric namespace
@@ -26,11 +26,14 @@ module RequestQueueTime
 
   # AWS access_key_id
   mattr_accessor :aws_access_key_id
-  @@aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+  @@aws_access_key_id = ENV.fetch('AWS_ACCESS_KEY_ID', nil)
 
   # AWS access_key_id
   mattr_accessor :aws_secret_access_key
-  @@aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+  @@aws_secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY', nil)
+
+  mattr_accessor :aws_region
+  @@aws_region = ENV.fetch('AWS_REGION')
 
   def self.setup
     yield self

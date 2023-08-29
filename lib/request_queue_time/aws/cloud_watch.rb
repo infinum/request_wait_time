@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module RequestQueueTime
   module Aws
     class CloudWatch
       def initialize(amzn_trace_id_header)
-        @client = ::Aws::CloudWatch::Client.new(region: 'eu-west-1', credentials: credentials)
+        @client = ::Aws::CloudWatch::Client.new(region: RequestQueueTime.aws_region, credentials: credentials)
         @amzn_trace_id_header = amzn_trace_id_header
       end
 
@@ -10,12 +12,12 @@ module RequestQueueTime
         client.put_metric_data(
           namespace: RequestQueueTime.metric_namespace,
           metric_data: [{
-                          metric_name: RequestQueueTime.metric_name,
-                          dimensions: dimensions,
-                          timestamp: Time.current.to_i,
-                          value: request_wait_time,
-                          unit: "Seconds"
-                        }]
+            metric_name: RequestQueueTime.metric_name,
+            dimensions: dimensions,
+            timestamp: Time.current.to_i,
+            value: request_wait_time,
+            unit: 'Seconds'
+          }]
         )
       end
 
@@ -29,7 +31,7 @@ module RequestQueueTime
 
       def dimensions
         [
-          { name: "Environment", value: RequestQueueTime.metric_environment },
+          { name: 'Environment', value: RequestQueueTime.metric_environment },
           { name: 'Application name', value: RequestQueueTime.metric_app_name }
         ]
       end
