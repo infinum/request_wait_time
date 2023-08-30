@@ -32,7 +32,7 @@ In application.rb set middleware:
    
 ```ruby
   config.middleware.insert_before 0, RequestQueueTime::Middleware
-end
+```
 
 ## Development
 
