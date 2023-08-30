@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../../lib/request_queue_time/aws/amzn_trace_id'
-
 RSpec.describe RequestQueueTime::Aws::AmznTraceId do
   subject(:amzn_trace_id) { described_class.new(header) }
 
@@ -9,7 +7,7 @@ RSpec.describe RequestQueueTime::Aws::AmznTraceId do
 
   describe '#time' do
     it 'returns time in seconds' do
-      expect(amzn_trace_id.time).to eq 1_693_219_622
+      expect(amzn_trace_id.request_start_time).to eq 1_693_219_622
     end
   end
 end
